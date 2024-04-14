@@ -1,0 +1,104 @@
+.home-box{
+  width: 100vw;
+  background-color: #FFFFFF;
+  height: 100vh;
+  
+  .nav{
+    height: 40px;
+    background-color: #ff6a00;
+    margin-bottom: 10px;
+    .nav-wrap{
+      margin: 0 auto;
+      width: 1200px;
+      display: flex;
+      align-items: center;
+      p{
+        height: 100%;
+        font-size: 12px;
+        line-height: 40px;
+        font-weight: bold;
+        padding: 0 24px;
+        color: #FFF;
+        &:hover{
+          // background: blue;
+          position: relative;
+          top: 1px;
+          background: #ff6a00;
+        }
+      }
+    }
+  }
+  .top-banner{
+    height: 132px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    .banner{
+      width: 1200px;
+      height: 100%;
+    }
+  }
+  .product-list{
+    width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    .item{
+      width: 205px;
+      margin: 0 20px 20px 0;
+      .item-img{
+        // height: 311px;
+        width: 100%;
+      }
+      .product-info{
+        text-align: center;
+        font-family: "微软雅黑",simhei;
+        color: #233333;
+        padding: 10px;
+        .promotion{
+          font-weight: bold;
+          font-size: 14px;
+          color: #f00;
+          margin: 0;
+          height: 20px;
+        }
+        .name{
+          overflow: hidden;
+          height: 20px;
+          line-height: 20px;
+          font-weight: bold;
+          font-size: 14px;
+          margin: 0 0 10px;
+        }
+        .desc{
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-size: 12px;
+          min-height: 17px;
+        }
+        .box{
+          box-sizing: border-box;
+          .price{
+            text-align: center;
+            font-family: "微软雅黑",simhei;
+            color: #233333;
+          }
+          .sale{
+              margin-top: 6px;
+            font-size: 12px;
+            color: #71797F;
+            line-height: 16px;
+          }
+        }
+      }
+      &:hover{
+        box-shadow: 1px 2px 2px #ccc;
+      }
+    }
+  }
+}
+  
