@@ -1,6 +1,6 @@
 import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Layout } from 'antd';
+import { Button, Checkbox, Form, Input, Layout, message } from 'antd';
 import './style.scss'
 import { actions } from '../../store/reduxMini';
 import { Link } from 'react-router-dom';
@@ -9,12 +9,24 @@ const { Header, Content } = Layout;
 const CmsLogin: React.FC = () => {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
-        actions.cms.setState({
-            isLogin: true,
-            userInfo: {
-                nickname: '老板',
+        
+        if (values.phone) {
+            const userInfo = localStorage.getItem('cmsUserInfo');
+            if (userInfo) {
+                const useR = JSON.parse(userInfo);
+               
+                if (values.phone !== useR.phone.trim()) {
+                    message.error('无此账号');
+                } else {
+                    actions.cms.setState({
+                        isLogin: true,
+                    })
+                } 
+            } else {
+                message.error('暂无账号，请注册');
             }
-        })
+            
+        }
     };
 
     return (
@@ -59,7 +71,7 @@ const CmsLogin: React.FC = () => {
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
                         </Button>
-                        还没有账号？ <Link to={'/cmsRegister'} >去注册</Link>
+                        还没有账号？ <Link to={'/cmsRegister?from=cms'} >去注册</Link>
                     </Form.Item>
                 </Form>
             </Content>

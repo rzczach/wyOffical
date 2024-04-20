@@ -1,20 +1,23 @@
 // import { actions, getState } from 'kredux-mini';
 
-import { getState } from "../store/reduxMini";
-
+import { actions } from "../store/reduxMini";
+interface UseInfo {
+    nickname?: string;
+}
 export default {
     state: {
         isLogin: false,
-        userInfo: {
-            name: '张三',
-            age: 18,
-            sex: '男',
-
-        },
+        userInfo: {} as UseInfo,
     },
     actions: {
-        getUserInfo() {
-           return getState().use.userInfo;
+        init() {
+            const  userInfo = localStorage.getItem('userInfo');
+            if (userInfo) {
+                actions.use.setState({
+                    isLogin: true,
+                    userInfo: JSON.parse(userInfo)
+                })
+            }
         },
     },
 };

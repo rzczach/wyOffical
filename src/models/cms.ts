@@ -1,3 +1,5 @@
+import { actions } from "../store/reduxMini";
+
 // import { actions, getState } from 'kredux-mini';
 interface UserInfo{
     nickname: string;
@@ -9,8 +11,14 @@ export default {
        
     },
     actions: {
-        add() {
-            // actions.home.setState({ count: getState('home').count + 1 });
+        init() {
+            const  userInfo = localStorage.getItem('cmsUserInfo');
+            if (userInfo) {
+                actions.cms.setState({
+                    isLogin: true,
+                    userInfo: JSON.parse(userInfo)
+                })
+            }
         },
     },
 };

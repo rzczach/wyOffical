@@ -1,14 +1,11 @@
-import React, { useState } from 'react';
-import type { CascaderProps } from 'antd';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
-    AutoComplete,
     Button,
-    Cascader,
     Checkbox,
     Col,
     Form,
     Input,
-    InputNumber,
     Row,
     Select,
     Layout
@@ -18,47 +15,6 @@ import { actions } from '../../store/reduxMini';
 const { Header, Content } = Layout;
 
 const { Option } = Select;
-
-interface DataNodeType {
-    value: string;
-    label: string;
-    children?: DataNodeType[];
-}
-
-const residences: CascaderProps<DataNodeType>['options'] = [
-    {
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [
-            {
-                value: 'hangzhou',
-                label: 'Hangzhou',
-                children: [
-                    {
-                        value: 'xihu',
-                        label: 'West Lake',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                    },
-                ],
-            },
-        ],
-    },
-];
 
 const formItemLayout = {
     labelCol: {
@@ -86,15 +42,41 @@ const tailFormItemLayout = {
 
 
 const CmsLogin: React.FC = () => {
+    // const { from } = useParams();
+    const location = useLocation();
+    const history = useNavigate();
+  
+    const searchParams = new URLSearchParams(location.search);
+    console.log('location', location);
+    const from = searchParams.get('from');
+   
     const [form] = Form.useForm();
-    const onFinish = (values: any) => {
+    console.log('from', searchParams);
+    const onFinish = async (values: any) => {
         console.log('Received values of form: ', values);
-        actions.cms.setState({
-            isLogin: true,
-            userInfo: {
-                nickname: '老板',
-            }
-        })
+        
+        if (from === 'qian') {
+            await actions.use.setState({
+               
+                userInfo: values
+            })
+            localStorage.setItem('userInfo', JSON.stringify(values))
+            history(-1);
+
+        } else {
+            await actions.cms.setState({
+                userInfo: values
+            })
+            localStorage.setItem('cmsUserInfo', JSON.stringify(values))
+            history(-1);
+
+        }
+        // actions.cms.setState({
+        //     isLogin: true,
+        //     userInfo: {
+        //         nickname: '老板',
+        //     }
+        // })
     };
 
     const prefixSelector = (
@@ -106,29 +88,6 @@ const CmsLogin: React.FC = () => {
         </Form.Item>
     );
 
-    const suffixSelector = (
-        <Form.Item name="suffix" noStyle>
-            <Select style={{ width: 70 }}>
-                <Option value="USD">$</Option>
-                <Option value="CNY">¥</Option>
-            </Select>
-        </Form.Item>
-    );
-
-    const [autoCompleteResult, setAutoCompleteResult] = useState<string[]>([]);
-
-    const onWebsiteChange = (value: string) => {
-        if (!value) {
-            setAutoCompleteResult([]);
-        } else {
-            setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-        }
-    };
-
-    const websiteOptions = autoCompleteResult.map((website) => ({
-        label: website,
-        value: website,
-    }));
 
     return (
         <Layout style={{ height: '100vh', overflow: 'scroll',}}>
@@ -151,11 +110,11 @@ const CmsLogin: React.FC = () => {
                         rules={[
                             {
                                 type: 'email',
-                                message: 'The input is not valid E-mail!',
+                                message: '请输入正确的邮箱地址',
                             },
                             {
                                 required: true,
-                                message: 'Please input your E-mail!',
+                                message: '请输入你的邮箱',
                             },
                         ]}
                     >
@@ -164,7 +123,7 @@ const CmsLogin: React.FC = () => {
                     <Form.Item
                         name="phone"
                         label="手机号"
-                        rules={[{ required: true, message: 'Please input your phone number!' }]}
+                        rules={[{ required: true, message: '请输入手机号' }]}
                     >
                         <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
                     </Form.Item>
@@ -230,29 +189,7 @@ const CmsLogin: React.FC = () => {
                         <Input />
                     </Form.Item>
 
-                    {/* <Form.Item
-                        name="residence"
-                        label="Habitual Residence"
-                        rules={[
-                            { type: 'array', required: true, message: 'Please select your habitual residence!' },
-                        ]}
-                    >
-                        <Cascader options={residences} />
-                    </Form.Item> */}
-
-
-
-
-
-                    {/* <Form.Item
-                        name="website"
-                        label="Website"
-                        rules={[{ required: true, message: 'Please input website!' }]}
-                    >
-                        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-                            <Input />
-                        </AutoComplete>
-                    </Form.Item>*/}
+                    
 
                     <Form.Item
                         name="intro"
@@ -262,18 +199,7 @@ const CmsLogin: React.FC = () => {
                         <Input.TextArea showCount maxLength={100} />
                     </Form.Item> 
 
-                    {/* <Form.Item
-                        name="gender"
-                        label="Gender"
-                        rules={[{ required: true, message: 'Please select gender!' }]}
-                    >
-                        <Select placeholder="select your gender">
-                            <Option value="male">Male</Option>
-                            <Option value="female">Female</Option>
-                            <Option value="other">Other</Option>
-                        </Select>
-                    </Form.Item> */}
-
+                  
 
                     <Form.Item
                         name="agreement"

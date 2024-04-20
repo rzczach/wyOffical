@@ -1,10 +1,13 @@
 import React from "react";
 import './style.scss';
 import { Link } from "react-router-dom";
+import { actions, useSelector } from "../../store/reduxMini";
 
-export default class Nav extends React.PureComponent {
-    render() {
-        return (
+const Nav = () => {
+    const { userInfo, isLogin } = useSelector((state: State) => (state.use))
+    console.log('isLogin', isLogin);
+    return (
+        <>
             <div className="top-nav">
                 <div className="top-nav-wrapper">
                     <ul className="top-nav-l">
@@ -13,9 +16,15 @@ export default class Nav extends React.PureComponent {
                         </li>
                     </ul>
                     <ul className="top-nav-r">
-                        <Link to="/login">
-                            <li className="menu login" id="LoginInfo">你好，请登录|注册</li>
-                        </Link>
+                        {
+                            !isLogin ? <Link to="/login">
+                                <li className="menu login" id="LoginInfo">你好，请登录|注册</li>
+                            </Link>
+                                : <Link to="/login">
+                                    <li className="menu login" id="LoginInfo">欢迎您{userInfo.nickname}</li>
+                                </Link>
+                        }
+
                         <li className="menu">
                             订单查询
                         </li>
@@ -31,6 +40,10 @@ export default class Nav extends React.PureComponent {
                     </ul>
                 </div>
             </div>
-        )
-    }
+            <div className="top-nav-place" />
+
+
+        </>
+    )
 }
+export default Nav;

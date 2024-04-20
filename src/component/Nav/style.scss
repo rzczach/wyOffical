@@ -1,9 +1,13 @@
 .top-nav{
     min-width: 1200px;
+    width: 100vw;
     height: 40px;
     font-size: 12px;
     color: #71797F;
     background-color: #F3F5F7;
+    position: fixed;
+    top: 0;
+    left: 0;
     .top-nav-wrapper{
       width: 1200px;
       margin: 0 auto;
@@ -22,3 +26,7 @@
       }
     } 
 } 
+.top-nav-place{
+    width: 100vw;
+    height: 40px;
+}
