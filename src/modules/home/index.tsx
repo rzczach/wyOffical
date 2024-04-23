@@ -7,10 +7,10 @@ import React from 'react';
 import { Layout, Button } from 'antd';
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { testImg } from '../../assets/image';
+// import { testImg } from '../../assets/image';
 import Nav from '../../component/Nav';
 
-
+const testImg = 'https://upyun.dinghuale.com/uploads/20200826/202008261130205022.jpg'
 
 
 const mapState = (state: State) => ({
