@@ -3,27 +3,91 @@
 import { actions } from "../store/reduxMini";
 import axios from 'axios';
 import Api from "../utils/api";
+import { message } from "antd";
 
-interface UseInfo {
-    nickname?: string;
+export interface UserInfo {
+    userId: number;
+    username: string;
+    email: string;
+    password: string;
+    phoneNumber: number;
+    shippingAddressID: number;
+    profileImage: number;
+    registrationTime: Date;
+    lastLoginTime: Date;
 }
 export default {
     state: {
         isLogin: false,
-        userInfo: {} as UseInfo,
+        userInfo: {} as UserInfo,
     },
     actions: {
-        init() {
-            // const  userInfo = localStorage.getItem('userInfo');
-            const info = axios.get(Api.getUserInfo);
-            console.log('info', info);
-           
-            // if (userInfo) {
-            //     actions.use.setState({
-            //         isLogin: true,
-            //         userInfo: JSON.parse(userInfo)
-            //     })
-            // }
+        async init() {
+            const data = JSON.parse(localStorage.getItem('userInfo') || '{}');
+            if (data && data.userId) {
+
+                const info = await axios.get(Api.getUserById, {
+                    params: {
+                        userId: data.userInfo.userId,
+                    }
+                });
+                if (info.data) {
+
+                    const userInfo = info.data.result;
+                    console.log('userInfo', userInfo);
+                    actions.use.setState({
+                        userInfo,
+                        isLogin: true,
+                    })
+
+                }
+
+            }
         },
+        async login(data: { phoneNumber: number; password: number }) {
+            const info = await axios.get(Api.login, {
+                params: data
+            });
+            if (info.data) {
+                if (!info.data.result.flag) {
+                    message.error(info.data.message)
+                } else {
+                    message.success(info.data.message);
+                    const userInfo = info.data.result;
+                    console.log('userInfo', userInfo);
+                    actions.use.setState({
+                        userInfo,
+                        isLogin: true,
+                    })
+
+                    localStorage.setItem('userInfo', JSON.stringify({ userInfo }))
+                }
+            }
+            return true;
+
+        },
+        async register(data: Partial<UserInfo>) {
+            const info = await axios.post(Api.createUser, data);
+            if (info.data) {
+               
+                message.success(info.data.message)
+                // if (!info.data.result.flag) {
+                //     message.error(info.data.message)
+                // } else {
+                //     message.success(info.data.message);
+                //     const userInfo = info.data.result;
+                //     console.log('userInfo', userInfo);
+                //     actions.use.setState({
+                //         userInfo,
+                //         isLogin: true,
+                //     })
+
+                //     localStorage.setItem('userInfo', JSON.stringify({ userInfo }))
+                // }
+                return true;
+            }
+           
+
+        }
     },
 };

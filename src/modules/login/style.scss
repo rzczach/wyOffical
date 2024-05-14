@@ -1,70 +1,116 @@
 .login-container {
-  width: 100%;
-  height: 100vh;
-  background-color: #F5F5F5;
-  
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  
-    h2 {
-      color: #333;
-      font-size: 2rem;
-      margin-bottom: 1rem;
+    width: 100%;
+    height: 100%;
+
+
+    .login-box {
+        width: 100%;
+        height: 540px;
+        // background-color: #F5F5F5;
+        background-image: url('https://www.dinghuale.com/public/images/banner1.jpg');
+        background-size: cover;
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        margin-top: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .register-wrap{
+            background-color: #FFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           
+            padding: 30px;
+
+            margin-right: 100px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .login-wrap {
+            background-color: #FFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 330px;
+            height: 400px;
+
+            margin-right: 100px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+            .login-type {
+                width: 100%;
+                height: 44px;
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+                div {
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .active {
+                    color: #E60634;
+                    border-bottom: 2px solid #E60634;
+                }
+            }
+
+            h2 {
+                color: #333;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .input-group {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 1rem;
+
+                label {
+                    width: 80px;
+                    color: #666;
+                    font-size: 1rem;
+                    margin-right: 1rem;
+                }
+
+                input {
+                    flex: 1;
+                    height: 36px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 0 1rem;
+                    font-size: 14px;
+                    outline: none;
+                    min-width: 240px;
+                    border-radius: 4px;
+                }
+            }
+
+            .login-btn {
+                width: 100%;
+                max-width: 300px;
+                height: 40px;
+                background: #FF734C;
+                color: #fff;
+
+
+                cursor: pointer;
+
+                text-align: center;
+
+                margin-top: 10px;
+                border-radius: 24px;
+                font-size: 16px;
+
+                &:hover {
+                    background-color: #FF534a;
+
+                }
+            }
+        }
     }
-  
-    .input-group {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin-bottom: 1rem;
-  
-      label {
-        width: 80px;
-        color: #666;
-        font-size: 1rem;
-        margin-right: 1rem;
-      }
-  
-      input {
-        flex: 1;
-        height: 36px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        padding: 0 1rem;
-        font-size: 14px;
-        outline: none;
-        min-width: 240px;
-        border-radius: 4px;
-      }
-    }
-  
-    .login-btn {
-      width: 100%;
-      max-width: 300px;
-      height: 40px;
-      background: #FF734C;
-      color: #fff;
-     
-    
-      cursor: pointer;
-      
-      text-align: center;
-      
-      margin-top: 10px;
-      border-radius: 24px;
-      font-size: 16px;
-      &:hover {
-        background-color: #FF534a;
-        
-      }
-    }
-  }
 }
-  
-  
