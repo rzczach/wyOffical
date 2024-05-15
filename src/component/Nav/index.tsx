@@ -17,7 +17,7 @@ const Nav = () => {
                 <div className="top-nav-wrapper">
                     <ul className="top-nav-l">
                         <li className="menu">
-                            hi 欢迎来订花乐
+                            hi 欢迎来到文艺鲜花网
                         </li>
                     </ul>
                     <ul className="top-nav-r">
