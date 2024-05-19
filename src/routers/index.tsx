@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../modules/home/index';
 import Login from '../modules/login/index';
-import Register from '../modules/register/index';
+import ShopingCar from '../modules/shopingCar/index';
 import Detail from '../modules/detail/index';
 import Cms from 'Src/cms/index';
 import CmsRegister from 'Src/cms/CmsRegister/index';
@@ -17,7 +17,7 @@ const Ro = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/shopingCar" element={<ShopingCar />} />
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/cms" element={<Cms />} />
                 <Route path="/cmsRegister" element={<CmsRegister />} />

@@ -1,46 +1,9 @@
 .home-box {
     width: 100vw;
     background-color: #f5f5f5;
-    height: 100vh;
-
-    .header {
-        border-bottom: 2px solid rgb(136, 78, 34);
 
 
-        .containner {
-            margin: 100px auto 0;
-            width: 1200px;
-            display: flex;
-            align-items: center;
-
-            .nav-classify {
-                width: 200px;
-                text-align: center;
-                height: 40px;
-                line-height: 40px;
-                padding: 0 20px;
-                background-color: rgb(136, 78, 34);
-                color: #fff;
-                margin-right: 20px;
-                position: relative;
-                cursor: pointer;
-            }
-
-            .nav-title {
-                padding: 0 20px;
-                height: 40px;
-                line-height: 40px;
-                font-weight: bold;
-            }
-
-            .nav-title:hover {
-                color: rgb(136, 78, 34);
-                ;
-            }
-
-        }
-    }
-
+    
     .top-banner {
         margin-bottom: 20px;
 
@@ -93,20 +56,22 @@
             }
         }
     }
-    .flower-title{
+
+    .flower-title {
         font-size: 40px;
         margin: 20px auto 20px;
         width: 1200px;
     }
+
     .product-list {
         width: 1200px;
         display: flex;
         flex-wrap: wrap;
         margin: 0 auto;
         align-items: center;
-       
 
-        
+
+
 
         .item {
 
@@ -147,6 +112,7 @@
                 justify-content: space-between;
                 align-items: center;
                 margin-top: 10px;
+
                 .price {
                     text-align: center;
                     font-family: "微软雅黑", simhei;

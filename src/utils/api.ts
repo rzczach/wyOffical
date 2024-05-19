@@ -9,5 +9,6 @@ const Api = {
     createUser: `${prefix}users/create`,
     // 商品
     productList: `${prefix}product/list`,
+    productInfo: `${prefix}product/info`,
 }
 export default Api;

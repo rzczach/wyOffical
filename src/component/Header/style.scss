@@ -1,0 +1,98 @@
+.header {
+    border-bottom: 2px solid rgb(136, 78, 34);
+    background-color: #FFF;
+
+    .searc-box {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        justify-content: center;
+
+        .logo {
+            margin-right: 200px;
+            height: 100px;
+        }
+
+        .input-group {
+            border: 1px solid rgb(136, 78, 34);
+            display: flex;
+            height: 42px;
+            align-items: center;
+
+            .searchInput {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                background: #fff;
+                width: 350px;
+                height: 30px;
+                border: none;
+                outline: 0;
+                resize: none;
+                font-size: 14px;
+                text-indent: 10px;
+            }
+
+            .searchIcon {
+                order: none;
+                background-color: rgb(136, 78, 34);
+                color: #fff;
+                width: 50px;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center
+            }
+        }
+
+        .search-keywords {
+            padding: 10px 0;
+            display: flex;
+            margin-top: 10px;
+
+            .words {
+                color: #999;
+                padding: 0 6px;
+                border-right: 1px solid #999;
+                line-height: 1;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .containner {
+        margin: 30px auto 0;
+        width: 1200px;
+        display: flex;
+        align-items: center;
+
+        .nav-classify {
+            width: 200px;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 20px;
+            background-color: rgb(136, 78, 34);
+            color: #fff;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .nav-title {
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            font-weight: bold;
+        }
+
+        .nav-title:hover {
+            color: rgb(136, 78, 34);
+            ;
+        }
+
+    }
+}

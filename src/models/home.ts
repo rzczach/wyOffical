@@ -106,6 +106,22 @@ export default {
             }
             return true;
         },
+        async getProductInfo(id: string) {
+            const info = await axios.get(Api.productInfo, {
+                params: {
+                    productId: id,
+                }
+            });
+            console.log('info', info);
+            // if (info.data) {
+            //     const list = info.data.result.list;
+            //     console.log('info', info.data);
+            //     actions.home.setState({
+            //         productList: list
+            //     })
+            // }
+            // return true;
+        },
         add() {
             // actions.home.setState({ count: getState('home').count + 1 });
         },
