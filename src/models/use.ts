@@ -23,12 +23,13 @@ export default {
     },
     actions: {
         async init() {
+            console.log('init');
             const data = JSON.parse(localStorage.getItem('userInfo') || '{}');
             if (data && data.userId) {
 
                 const info = await axios.get(Api.getUserById, {
                     params: {
-                        userId: data.userInfo.userId,
+                        userId: data.userId,
                     }
                 });
                 if (info.data) {
@@ -60,7 +61,7 @@ export default {
                         isLogin: true,
                     })
 
-                    localStorage.setItem('userInfo', JSON.stringify({ userInfo }))
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo))
                 }
             }
             return true;

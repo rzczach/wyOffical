@@ -4,7 +4,8 @@ import axios from 'axios';
 import Api from "../utils/api";
 import { actions } from '../store/reduxMini';
 //  ---------------------------- 商品信息------------------------
-export enum  CATEGORY {
+
+export enum CATEGORY {
     huashu = 1,
     lihe,
     dangao,
@@ -13,7 +14,7 @@ export enum  CATEGORY {
     shoutihualan,
     zhuohua
 }
-export enum  OCCASION {
+export enum OCCASION {
     aiqing = 1,
     shengri,
     youqing,
@@ -59,39 +60,54 @@ export interface ProductInfo {
      * 价格
      */
     price: number;
-     /**
-     * 划线价格
-     */
+    /**
+    * 划线价格
+    */
     originaPrice: number;
-     /**
-     * 售卖数量
-     */
+    /**
+    * 售卖数量
+    */
     salesVolume: number;
-     /**
-     * 上新时间
+    /**
+    * 上新时间
+    */
+    createTime: number;
+    /**
+    * 更新时间
+    */
+    uploadTime: number;
+    /**
+     * 详情
      */
-     createTime: number;
-     /**
-     * 更新时间
+    detail: string;
+    /**
+     * 配送信息
      */
-     uploadTime: number;
-     /**
-      * 详情
-      */
-     detail: string;
-     /**
-      * 配送信息
-      */
-     deliveryInfo: string
-     mainImg: string;
-     imgList: string[];
-     name: string;
+    deliveryInfo: string
+    /**
+     * 材料文案详情页使用
+     */
+    materialText: string;
+    /**
+     * 包装
+     */
+    packing: string;
+    /**
+     * 包装
+     */
+    imgList: string;
+    /**
+     * 包装
+     */
+    mainImg: string;
+    name: string;
 }
 export default {
     state: {
         installWx: false,
         count: 1,
-        productList: [] as ProductInfo[]
+        productList: [] as ProductInfo[],
+        productInfo: {} as ProductInfo
     },
     actions: {
         async getProductList() {
@@ -113,13 +129,13 @@ export default {
                 }
             });
             console.log('info', info);
-            // if (info.data) {
-            //     const list = info.data.result.list;
-            //     console.log('info', info.data);
-            //     actions.home.setState({
-            //         productList: list
-            //     })
-            // }
+            if (info.data) {
+                const d = info.data.result;
+
+                actions.home.setState({
+                    productInfo: d
+                })
+            }
             // return true;
         },
         add() {

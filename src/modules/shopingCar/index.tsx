@@ -1,59 +1,133 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { DeleteFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled } from '@ant-design/icons';
 import {
 
+    Checkbox,
     Form,
 
-    Layout
+    Layout,
+    Modal,
+    Table
 } from 'antd';
 import './style.scss'
-import { actions } from '../../store/reduxMini';
+import { actions, useSelector } from '../../store/reduxMini';
 import Nav from '../../component/Nav';
 
 
+
 const ShopingCar: React.FC = () => {
-    // const { from } = useParams();
-    const location = useLocation();
-    const history = useNavigate();
+    const { userInfo } = useSelector((state: State) => state.use)
+    const { cartList } = useSelector((state: State) => state.cart)
+    useEffect(() => {
+        async function init() {
 
-    const searchParams = new URLSearchParams(location.search);
-    console.log('location', location);
-    const from = searchParams.get('from');
-
-    const [form] = Form.useForm();
-    console.log('from', searchParams);
-
-    const list = [
-        {
-            mainImg: 'https://upyun.dinghuale.com/uploads/20200707/202007071003531298.jpg',
-            name: '挚爱一生',
-            price: 269,
-            salePrice: 330,
-            count: 1,
+            if (!userInfo) {
+                await actions.use.init();
+            }
+            const a = await actions.cart.getCart();
+            setCartData(a)
         }
-    ]
+        init()
+    }, [userInfo])
+  
+    const history = useNavigate();
+  
+   
+
     const selectAll = () => {
 
     }
-    const selectCurrent = () => {
+    const selectCurrent = (e) => {
+     
 
     }
     const deleteGoods = () => {
 
     }
-    const deleteSelected = () => {
-
+    const deleteSelected = async () => {
+        await actions.cart.deleteCart(cartData);
+        const a = await actions.cart.getCart();
+        console.log('----', a);
+        setCartData(a)
+        setTotalPrice(0)
     }
     const submitCarts = () => {
 
     }
+    // 使用useState管理勾选状态和总价
+    const [cartData, setCartData] = useState(cartList);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    // 更新勾选状态并重新计算总价
+    const handleCheckboxChange = (record) => {
+        const updatedData = cartData.map(item =>
+            item.cartId === record.cartId ? { ...item, selected: !item.selected } : item
+        );
+        const newTotalPrice = updatedData.reduce(
+            (sum, item) => sum + (item.selected ? item.price : 0),
+            0
+        );
+        setCartData(updatedData);
+        setTotalPrice(newTotalPrice);
+    };
+    const columns = [
+        {
+            title: '选择',
+            dataIndex: 'selected',
+            render: (_, record) => (
+                <Checkbox
+                    checked={record.selected}
+                    onChange={() => handleCheckboxChange(record)}
+                />
+            ),
+        },
+        {
+            title: '商品名称',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: '商品图片',
+            dataIndex: 'mainImg',
+            key: 'mainImg',
+            render: (_, d) => {
+                return (
+                    <img src={d.mainImg} className="goods-image" />
+                );
+            }
+        },
+        {
+            title: '市场价',
+            dataIndex: 'originaPrice',
+            key: 'originaPrice',
+        },
+        {
+            title: '店铺价',
+            dataIndex: 'price',
+            key: 'price',
+        },
+        {
+            title: '数量',
+            dataIndex: 'quantity',
+            key: 'quantity',
+            render:  (_, record) => {
+                return (
+                    <div className="goods-entry single-area">
+                        <p>{record.quantity || 1}</p>
+                    </div>
+                );
+            }
+        },
+        
+    ];
     return (
         <Layout style={{ height: '100vh', overflow: 'scroll', }}>
             <Nav />
             <div className='cart-maincont'>
                 {
-                    !list || !list.length
+                    !cartList || !cartList.length
                         ? <div className='no-content'>
 
                             <img className='no' src='https://www.dinghuale.com/public/images/cartback.png' />
@@ -61,80 +135,12 @@ const ShopingCar: React.FC = () => {
                         </div>
                         :
                         <div className='content'>
+                            <Table
+                                className="custom-table"
+                                columns={columns}
+                                dataSource={cartData || cartList}
+                            />
                             <div className='goods-allcont'>
-                                <div className="goods-title">
-                                    <div className="goods-allcheck single-area">
-                                        <input style={{ position: 'relative', top: '1px' }} name="total" type="checkbox" onChange={selectAll} />
-                                        &nbsp;
-                                        全选
-                                    </div>
-                                    <div className="goods-name single-area">
-                                        <p>商品信息</p>
-                                    </div>
-                                    <div className="goods-entry single-area">
-                                        <p>市场价</p>
-                                    </div>
-                                    <div className="goods-entry single-area">
-                                        <p>店铺价</p>
-                                    </div>
-
-                                    <div className="goods-entry single-area">
-                                        <p>数量</p>
-                                    </div>
-                                    <div className="goods-entry single-area">
-                                        <p>操作</p>
-                                    </div>
-                                </div>
-                                <div className='goos'>
-                                    <div className="goods-items">
-                                        <div className="goods-allcheck single-area">
-                                            <label><input name="goods" value="1715868984566" data-price="189" data-num="1" data-id="1715868984566" type="checkbox" onChange={selectCurrent} /></label>
-                                        </div>
-                                        <div className="goods-name single-area">
-                                            <Link to="/proDetail.html?pid=283" className='link'>
-                                                <img src="https://upyun.dinghuale.com/uploads/20200707/202007071003531298.jpg" className="goods-image" />
-                                                &nbsp;&nbsp;
-                                                <p className="goods-des">挚爱一生</p>
-                                            </Link>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p><del className="text-light">￥269</del></p>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p className="redfont">￥189</p>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p>1</p>
-                                        </div>
-
-                                        <DeleteFilled className="goods-entry single-area cursorponiter" onClick={deleteGoods} />
-
-                                    </div>
-                                    <div className="goods-items">
-                                        <div className="goods-allcheck single-area">
-                                            <label><input name="goods" value="1715868984566" data-price="189" data-num="1" data-id="1715868984566" type="checkbox" onChange={selectCurrent} /></label>
-                                        </div>
-                                        <div className="goods-name single-area">
-                                            <Link to="/proDetail.html?pid=283" className='link'>
-                                                <img src="https://upyun.dinghuale.com/uploads/20200707/202007071003531298.jpg" className="goods-image" />
-                                                &nbsp;&nbsp;
-                                                <p className="goods-des">挚爱一生</p>
-                                            </Link>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p><del className="text-light">￥269</del></p>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p className="redfont">￥189</p>
-                                        </div>
-                                        <div className="goods-entry single-area">
-                                            <p>1</p>
-                                        </div>
-
-                                        <DeleteFilled className="goods-entry single-area cursorponiter" onClick={deleteGoods} />
-
-                                    </div>
-                                </div>
                                 <div className="goods-settlement">
                                     <div className="goods-settlementcont">
                                         <div className="goods-allcheck single-area">
@@ -146,13 +152,13 @@ const ShopingCar: React.FC = () => {
                                         </div>
                                         <div className="goods-entry goods-allnumber single-area">
                                             <p>共</p>
-                                            <p id="total-num" className="large-size">0</p>
+                                            <p id="total-num" className="large-size">{cartData.filter((d) => d.selected).length}</p>
                                             <p></p>
                                             <p>件商品</p>
                                         </div>
                                         <div className="goods-entry goods-payable single-area">
                                             <p>应付金额:</p>
-                                            <p className="redfont large-size">￥<span id="total-price">0</span></p>
+                                            <p className="redfont large-size">￥<span id="total-price">{totalPrice}</span></p>
                                             <p></p>
                                         </div>
                                         <div className="goods-entry goods-allsettlement single-area">

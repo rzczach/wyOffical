@@ -10,5 +10,9 @@ const Api = {
     // 商品
     productList: `${prefix}product/list`,
     productInfo: `${prefix}product/info`,
+    // 购物车
+    createCart: `${prefix}cart/create`,
+    cartList: `${prefix}cart/list`,
+    deleteCart: `${prefix}cart/delete`,
 }
 export default Api;

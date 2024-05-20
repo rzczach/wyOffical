@@ -3,14 +3,16 @@ import './style.scss';
 import { actions, useSelector } from "../../store/reduxMini";
 import { Line } from './Line';
 import { useNavigate } from 'react-router';
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import { useState } from 'react';
 
 const Nav = () => {
     const { userInfo, isLogin } = useSelector((state: State) => (state.use))
+    const { cartList } = useSelector((state: State) => (state.cart))
     const [open, setOpen] = useState(false);
     const history = useNavigate();
     console.log('isLogin', isLogin);
+    console.log('userInfo', userInfo);
     return (
         <>
             <div className="top-nav">
@@ -41,8 +43,16 @@ const Nav = () => {
                             订单查询
                         </li>
                         <Line />
-                        <li className="menu">
-                            购物车
+                        <li className="menu" onClick={() => {
+                            if (isLogin) {
+
+                                actions.cart.getCart();
+                                history('/shopingCar');
+                            } else {
+                                message.warning('请先登录')
+                            }
+                        }}>
+                            购物车({cartList.length})
                         </li>
                     </ul>
                 </div>
