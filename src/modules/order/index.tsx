@@ -9,7 +9,6 @@ import { actions, useSelector } from '../../store/reduxMini';
 import Nav from '../../component/Nav';
 import { Checkbox, Form, Input, Layout, Modal, Row, Select, message } from 'antd';
 import addressJson from './AddressSelector/addressJson';
-import { CascadePicker } from 'antd-mobile';
 import AddressSelector from './AddressSelector';
 import {
     ModalForm,
