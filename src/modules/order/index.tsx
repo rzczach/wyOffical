@@ -72,6 +72,7 @@ const Order: React.FC = () => {
             totalPrice: price,
             addressId: userAddress.addressId,
         })
+        history('/home')
        
     }
 
