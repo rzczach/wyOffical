@@ -3,12 +3,14 @@ import home from '../models/home.ts';
 import use from '../models/use.ts';
 import cms from '../models/cms.ts';
 import cart from '../models/cart.ts';
+import order from '../models/order.ts';
 
 const store = {
     home,
     use,
     cms,
-    cart
+    cart,
+    order
 };
 
 declare global {

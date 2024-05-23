@@ -9,7 +9,8 @@ import {
 
     Layout,
     Modal,
-    Table
+    Table,
+    message
 } from 'antd';
 import './style.scss'
 import { actions, useSelector } from '../../store/reduxMini';
@@ -49,12 +50,15 @@ const ShopingCar: React.FC = () => {
     const deleteSelected = async () => {
         await actions.cart.deleteCart(cartData);
         const a = await actions.cart.getCart();
-        console.log('----', a);
         setCartData(a)
         setTotalPrice(0)
     }
     const submitCarts = () => {
-
+        if (totalPrice <= 0) {
+            message.warning('请勾选要购买的物品后去结算')
+        }else {
+            history('/order');
+        }
     }
     // 使用useState管理勾选状态和总价
     const [cartData, setCartData] = useState(cartList);
@@ -65,6 +69,10 @@ const ShopingCar: React.FC = () => {
         const updatedData = cartData.map(item =>
             item.cartId === record.cartId ? { ...item, selected: !item.selected } : item
         );
+        const productList = updatedData.filter((d) => 
+            d.selected
+        )
+        localStorage.setItem('productList', JSON.stringify(productList))
         const newTotalPrice = updatedData.reduce(
             (sum, item) => sum + (item.selected ? item.price : 0),
             0

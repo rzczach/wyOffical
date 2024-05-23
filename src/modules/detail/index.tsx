@@ -4,18 +4,18 @@ import { testImg } from "../../assets/image";
 import Header from "../../component/Header";
 import { useLocation, useNavigate } from "react-router";
 import { actions, useSelector } from "../../store/reduxMini";
+import { saleImg } from "./img";
 
 
 const Detail = () => {
 
     const [activeIndex, setActiveIndex] = useState(0)
     const { productInfo } = useSelector((state: State) => (state.home));
-    const { userInfo , isLogin} = useSelector((state: State) => (state.use));
+    const { userInfo, isLogin } = useSelector((state: State) => (state.use));
     const arr = new Array(4).fill('');
     const tab = [
         { name: '商品详情', count: 0, },
         { name: '用户评价', count: 130 },
-        { name: '常见问题', count: 0 },
         { name: '购物保障', count: 0 }
     ]
     const location = useLocation();
@@ -93,14 +93,16 @@ const Detail = () => {
                                 history('/login')
                             } else {
                                 console.log('加入');
-                                await actions.cart.createCart({productId: productInfo.productId})
-                                
+                                await actions.cart.createCart({ productId: productInfo.productId })
+
                             }
                         }}>加入股购物车</div>
                         <div className="btn-gourp-item buy" onClick={() => {
                             if (!isLogin) {
                                 history('/login')
                             } else {
+                                localStorage.setItem('productList', JSON.stringify([productInfo]));
+                                history('/order')
                                 console.log('加入');
                             }
                         }}>立即购买</div>
@@ -128,11 +130,24 @@ const Detail = () => {
                     }
 
                 </div>
-                <div className="content">
-                    这里是商品详情
-                    这里是商品详情
-                    这里是商品详情
-                </div>
+                {
+                    activeIndex === 0
+                        ? <div className="content">
+                            这里是商品详情
+                            这里是商品详情
+                            这里是商品详情
+                        </div>
+                        : null
+                }
+
+                {
+                    activeIndex === 2
+                        ? <div className="content">
+                            <img src={saleImg} />
+                        </div>
+                        : null
+                }
+
             </div>
         </div>
     )

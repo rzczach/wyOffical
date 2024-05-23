@@ -1,0 +1,191 @@
+.contenta {
+    width: 1200px;
+    margin: 0 auto;
+
+    .order-item {
+        margin-top: 10px;
+        background-color: #fff;
+
+        .orderItem-title {
+            background-color: #ccc;
+            font-weight: 600;
+            padding: 5px 20px;
+            font-size: 18px;
+        }
+
+        .orderItem-cont {
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ccc;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+
+            .addressBtn {
+                color: rgb(136, 78, 34);
+                font-size: 14px;
+            }
+
+            .ordliuyan {
+                width: 47.8%;
+                font-size: 16px;
+                line-height: 1.5;
+                font-family: 'SimHei', 'Microsoft Yahei', 'simsun', 'arial', 'tahoma';
+                color: #333;
+
+                .greetting-content {
+                    margin-top: 15px;
+
+                    .greetting-levamess {
+                        textarea {
+                            resize: none;
+                            outline: 0;
+                            /* -webkit-appearance: none; */
+                            white-space: pre-wrap;
+                            word-wrap: break-word;
+                            background: #fff;
+                            width: 80%;
+                            padding: 1.2%;
+                            border: 1px solid #ccc;
+                        }
+                    }
+                }
+            }
+        }
+        .clumes{
+            flex-direction: column;
+            // justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .order-address {
+            margin-left: 20px;
+            margin-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            outline: 0;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+           
+            .order-name {
+                margin-right: 70px;
+                
+            }
+        }
+
+
+    }
+
+    .contentsubmit-goods {
+        padding: 20px;
+        display: flex;
+
+        .submit-goods {
+            display: flex;
+            align-items: center;
+            margin-right: 32px;
+           
+            align-items: center;
+            
+
+            p {
+                font-size: 16px;
+                line-height: 1.5;
+                font-family: 'SimHei', 'Microsoft Yahei', 'simsun', 'arial', 'tahoma';
+                color: #333;
+            }
+        }
+
+        .submit-goodsbutton {
+            background-color: #884E22;
+            color: #fff;
+            padding: 4px 20px;
+            margin-right: 0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            cursor: pointer;
+            margin-left: 20%;
+        }
+    }
+
+    .orderItem-contBottom {
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .order-info {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            outline: 0;
+
+            input {
+                width: 80%;
+                height: 26px;
+                line-height: 26px;
+                padding-left: 1%;
+                resize: none;
+            }
+        }
+
+        .order-name {
+            margin-right: 70px;
+            width: 30%;
+        }
+
+        label {
+            font-size: 16px;
+        }
+    }
+
+    .fh {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: bold;
+    }
+
+    .orderItem-shopping {
+
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed #ccc;
+        box-sizing: border-box;
+        display: flex;
+
+        .shopping-image {
+            width: 100px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid #E4E4E4;
+
+            img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .shopping-message {
+            margin-right: 100px;
+            padding-left: 20px;
+            text-align: start;
+        }
+
+        .shopping-price {
+            margin-left: 19%;
+        }
+    }
+}
+
+.margintoppx {
+    margin-top: 10px;
+}

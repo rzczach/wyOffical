@@ -11,8 +11,6 @@ const Nav = () => {
     const { cartList } = useSelector((state: State) => (state.cart))
     const [open, setOpen] = useState(false);
     const history = useNavigate();
-    console.log('isLogin', isLogin);
-    console.log('userInfo', userInfo);
     return (
         <>
             <div className="top-nav">
@@ -30,7 +28,7 @@ const Nav = () => {
                                         history('/login');
                                     }}>你好，请登录</span>
                                     <span className="fl text-color-logo align-center" onClick={() => {
-                                         history('/login?from=1');
+                                        history('/login?from=1');
                                     }}>免费注册</span>
                                 </li>
                                 : <li className="menu login" id="LoginInfo" onClick={() => {
@@ -39,9 +37,13 @@ const Nav = () => {
 
                         }
                         <Line />
-                        <li className="menu">
-                            订单查询
-                        </li>
+                        {
+                            isLogin ?
+                                <li className="menu" onClick={() => { history('/userCenter') }}>
+                                    个人中心
+                                </li>
+                                : null
+                        }
                         <Line />
                         <li className="menu" onClick={() => {
                             if (isLogin) {
@@ -72,7 +74,7 @@ const Nav = () => {
                         });
                         history('/login');
                         localStorage.clear();
-                        
+
                     }
                 }
                 onCancel={() => { console.log('取消'); setOpen(false); }}

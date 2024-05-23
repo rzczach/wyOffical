@@ -14,5 +14,11 @@ const Api = {
     createCart: `${prefix}cart/create`,
     cartList: `${prefix}cart/list`,
     deleteCart: `${prefix}cart/delete`,
+    // 地址
+    addressList: `${prefix}address/infoByUserId`,
+    createAddress: `${prefix}address/create`,
+    // 订单
+    createOrder: `${prefix}order/create`,
+    
 }
 export default Api;

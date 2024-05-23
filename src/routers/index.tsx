@@ -4,8 +4,8 @@ import Home from '../modules/home/index';
 import Login from '../modules/login/index';
 import ShopingCar from '../modules/shopingCar/index';
 import Detail from '../modules/detail/index';
-import Cms from 'Src/cms/index';
-import CmsRegister from 'Src/cms/CmsRegister/index';
+import Order from '../modules/order/index';
+import UserCenter from '../modules/userCenter/index';
 import { actions } from '../store/reduxMini';
 
 
@@ -19,8 +19,8 @@ const Ro = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/shopingCar" element={<ShopingCar />} />
                 <Route path="/detail" element={<Detail />} />
-                <Route path="/cms" element={<Cms />} />
-                <Route path="/cmsRegister" element={<CmsRegister />} />
+                <Route path="/order" element={<Order />} />
+                <Route path="/userCenter" element={<UserCenter />} />
                 {/* 其他路由 */}
             </Routes>
         </Router>
