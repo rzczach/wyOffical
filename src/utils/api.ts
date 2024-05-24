@@ -7,6 +7,7 @@ const Api = {
     login: `${prefix}users/login`,
     getUserById: `${prefix}users/info`,
     createUser: `${prefix}users/create`,
+    updateUser: `${prefix}users/update`,
     // 商品
     productList: `${prefix}product/list`,
     productInfo: `${prefix}product/info`,
@@ -17,6 +18,9 @@ const Api = {
     // 地址
     addressList: `${prefix}address/infoByUserId`,
     createAddress: `${prefix}address/create`,
+    updateAddress: `${prefix}address/update`,
+    deleteAddress: `${prefix}address/delete`,
+    setDefaultAddress: `${prefix}address/setDefault`,
     // 订单
     createOrder: `${prefix}order/create`,
     

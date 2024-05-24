@@ -12,9 +12,9 @@ export interface UserInfo {
     password: string;
     phoneNumber: number;
     shippingAddressID: number;
-    profileImage: number;
-    registrationTime: Date;
-    lastLoginTime: Date;
+    profileImage: string;
+    registrationTime: string;
+    lastLoginTime: string;
 }
 export interface UserAddressData {
     addressId: number; // 主键，自动递增的地址ID
@@ -35,7 +35,8 @@ export interface UserAddressData {
 export default {
     state: {
         isLogin: false,
-        userInfo: {} as UserInfo,
+        userInfo: JSON.parse(localStorage.getItem('userInfo') || '{}') as UserInfo,
+        userAddressList: [] as UserAddressData[],
     },
     actions: {
         async init() {
@@ -82,6 +83,16 @@ export default {
             return true;
 
         },
+        async upDateUserInfo(data:Partial<UserInfo>) {
+            const { userInfo } = getState().use
+           console.log('data', data);
+            const info = await axios.post(Api.updateUser, {...data,userId: userInfo.userId});
+            if (info.data) {
+                message.success(info.data.message)
+                await actions.use.init();
+               
+            }
+        },
         async register(data: Partial<UserInfo>) {
             const info = await axios.post(Api.createUser, data);
             if (info.data) {
@@ -98,6 +109,9 @@ export default {
             });
             if (info.data) {
                 const d = info.data.result.info
+                actions.use.setState({
+                    userAddressList: d,
+                })
                 return d;
             }
         },
@@ -105,6 +119,37 @@ export default {
             const { userInfo } = getState().use
             const info = await axios.post(Api.createAddress, {...data,userId: userInfo.userId});
             if (info.data) {
+                await actions.use.getAddress();
+                const d = info.data.result.info
+                return d;
+            }
+        },
+        async upDateAddress(data:Partial<UserAddressData>) {
+            const { userInfo } = getState().use
+            console.log('data', data);
+            const info = await axios.post(Api.updateAddress, {...data,userId: userInfo.userId});
+            if (info.data) {
+                await actions.use.getAddress();
+                const d = info.data.result.info
+                return d;
+            }
+        },
+        async setDefaultAddress(data:Partial<UserAddressData>) {
+            const { userInfo } = getState().use
+            const info = await axios.post(Api.setDefaultAddress, {addressId: data.addressId ,userId: userInfo.userId});
+            if (info.data) {
+                message.success(info.data.message);
+                await actions.use.getAddress();
+                const d = info.data.result.info
+                return d;
+            }
+        },
+        async deleteAddress(data:Partial<UserAddressData>) {
+           
+            const info = await axios.post(Api.deleteAddress, {addressId: data.addressId});
+            if (info.data) {
+                message.success(info.data.message);
+                await actions.use.getAddress();
                 const d = info.data.result.info
                 return d;
             }

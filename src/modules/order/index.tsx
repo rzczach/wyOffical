@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { DeleteFilled } from '@ant-design/icons';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import './style.scss'
 import { actions, useSelector } from '../../store/reduxMini';
+import { Checkbox, Form, Input, Layout, Row, message } from 'antd';
 import Nav from '../../component/Nav';
-import { Checkbox, Form, Input, Layout, Modal, Row, Select, message } from 'antd';
-import addressJson from './AddressSelector/addressJson';
+
 import AddressSelector from './AddressSelector';
 import {
     ModalForm,
@@ -54,8 +53,8 @@ const Order: React.FC = () => {
         0
     );
     const addOrderItem = async () => {
-       
-        const {buyUserName,buyPhoneNumber, userMessage ,cardMessage} = form.getFieldsValue(['buyUserName', 'buyPhoneNumber', 'userMessage', 'cardMessage']);
+
+        const { buyUserName, buyPhoneNumber, userMessage, cardMessage } = form.getFieldsValue(['buyUserName', 'buyPhoneNumber', 'userMessage', 'cardMessage']);
         if (!buyUserName || !buyPhoneNumber) {
             return message.error('请填写订购人信息')
         }
@@ -72,13 +71,9 @@ const Order: React.FC = () => {
             addressId: userAddress.addressId,
         })
         history('/home')
-       
+
     }
 
-   
-
-    console.log('userAddress', userAddress);
- 
     return (
         <Layout style={{ height: '100vh', overflow: 'scroll', }}>
             <Nav />
