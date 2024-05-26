@@ -57,11 +57,13 @@
                 }
             }
         }
-        .clumes{
+
+        .clumes {
             flex-direction: column;
             // justify-content: flex-start;
             align-items: flex-start;
         }
+
         .order-address {
             margin-left: 20px;
             margin-right: 20px;
@@ -73,10 +75,10 @@
             font-size: 16px;
             color: #333;
             line-height: 1.5;
-           
+
             .order-name {
                 margin-right: 70px;
-                
+
             }
         }
 
@@ -91,9 +93,9 @@
             display: flex;
             align-items: center;
             margin-right: 32px;
-           
+
             align-items: center;
-            
+
 
             p {
                 font-size: 16px;
@@ -182,6 +184,45 @@
 
         .shopping-price {
             margin-left: 19%;
+        }
+    }
+
+}
+
+.pay-modal-box {
+
+    .pay-modal {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .qrcode {
+            width: 300px;
+            height: 300px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .paymethod {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 20%;
+                display: block;
+                margin-right: 10px;
+            }
+            .active{
+                border: 4px solid red;
+            }
         }
     }
 }

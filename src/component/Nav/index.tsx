@@ -15,7 +15,9 @@ const Nav = () => {
         <>
             <div className="top-nav">
                 <div className="top-nav-wrapper">
-                    <ul className="top-nav-l">
+                    <ul className="top-nav-l" onClick={() => {
+                        history('/');
+                    }}>
                         <li className="menu">
                             hi 欢迎来到文艺鲜花网
                         </li>

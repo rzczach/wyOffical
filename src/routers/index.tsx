@@ -6,6 +6,7 @@ import ShopingCar from '../modules/shopingCar/index';
 import Detail from '../modules/detail/index';
 import Order from '../modules/order/index';
 import UserCenter from '../modules/userCenter/index';
+import List from '../modules/list/index';
 import { actions } from '../store/reduxMini';
 
 
@@ -22,6 +23,7 @@ const Ro = () => {
                 <Route path="/detail" element={<Detail />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/userCenter" element={<UserCenter />} />
+                <Route path="/list" element={<List />} />
                 {/* 其他路由 */}
             </Routes>
         </Router>

@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import './style.scss'
 import { actions, useSelector } from '../../store/reduxMini';
-import { Checkbox, Form, Input, Layout, Row, message } from 'antd';
+import { Checkbox, Form, Input, Layout, Modal, Row, message } from 'antd';
 import Nav from '../../component/Nav';
-
+// import wx from './wx.png'
+// import zfb from './zfb.png.png'
 import AddressSelector from './AddressSelector';
 import {
     ModalForm,
@@ -44,6 +45,8 @@ const Order: React.FC = () => {
 
 
     const [showModal, setShowModal] = useState(false);
+    const [openPay, setOpenPay] = useState(false);
+    const [selectIndex, setSelectIndex] = useState(0);
     const [form] = Form.useForm();
     const productListJson = localStorage.getItem('productList');
     const productList = JSON.parse(productListJson || '[]');
@@ -52,7 +55,7 @@ const Order: React.FC = () => {
         0
     );
     const addOrderItem = async () => {
-
+       
         const { buyUserName, buyPhoneNumber, userMessage, cardMessage } = form.getFieldsValue(['buyUserName', 'buyPhoneNumber', 'userMessage', 'cardMessage']);
         if (!buyUserName || !buyPhoneNumber) {
             return message.error('请填写订购人信息')
@@ -224,7 +227,17 @@ const Order: React.FC = () => {
                             <div className="submit-goods" style={{ width: 264 }}>
 
                                 <div className=" submit-goodsbutton">
-                                    <div onClick={addOrderItem} className="a-colorfont">提交订单</div>
+                                    <div onClick={() => {
+                                        const { buyUserName, buyPhoneNumber } = form.getFieldsValue(['buyUserName', 'buyPhoneNumber', 'userMessage', 'cardMessage']);
+                                        if (!buyUserName || !buyPhoneNumber) {
+                                            return message.error('请填写订购人信息')
+                                        }
+                                        if (!userAddress) {
+                                            return message.error('请填写收货地址')
+                                        }
+                                         setOpenPay(true);
+                                       
+                                    }} className="a-colorfont">提交订单</div>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +322,45 @@ const Order: React.FC = () => {
 
 
             </ModalForm>
+            <Modal
+                className="pay-modal-box"
+                title="支付弹窗"
+                okText="立即支付"
+                cancelText='取消支付'
+                centered
+                open={openPay}
+                onOk={async () => {
+                    addOrderItem();
+                    setOpenPay(false);
+                }}
+                onCancel={() => setOpenPay(false)}
+                width={600}
+                getContainer={false}
+            >
+                <div className='pay-modal'>
+                    <div className='qrcode'>
+                        <img src={selectIndex === 0 ? '/wx.png' : '/zfb.png'} />
+                    </div>
+                    <div className='paymethod'>
+                        {[
+                            {
+                                name: '微信支付',
+                                url: 'https://upyun.dinghuale.com/public/images/weixin.png',
+                            },
+                            {
+                                name: '支付宝',
+                                url: 'https://upyun.dinghuale.com/public/images/zhifuboa.png',
+                            },
+                            
+                        ].map((d, i) => {
+                            return (
+                                <img key={`img-${i}`} onClick={() => {setSelectIndex(i)}} className={selectIndex === i ? 'active' : ''} src={d.url} alt={d.name} />
+                            );
+                        })}
+                    </div>
+                </div>
 
+            </Modal>
             {/* <Foot /> */}
         </Layout >
     );

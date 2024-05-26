@@ -38,9 +38,9 @@ const Header = () => {
     const search = () => {
        
         if (value) {
-            if (location.pathname !== '/') {
+            if (location.pathname !== '/list') {
                 // 如果不是首页，则先跳转到首页
-                history('/');
+                history('/list');
             }
             const matchedValue = matchFlowerMaterial(value);
             actions.home.getProductListByMaterial(matchedValue!);
@@ -51,9 +51,9 @@ const Header = () => {
     const history = useNavigate();
     const location = useLocation();
     const req = (index: number) => {
-        if (location.pathname !== '/') {
+        if (location.pathname !== '/list') {
             // 如果不是首页，则先跳转到首页
-            history('/');
+            history('/list');
         }
         actions.home.getProductList(index)
     }

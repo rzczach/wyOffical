@@ -100,7 +100,7 @@ const Detail = () => {
                                 await actions.cart.createCart({ productId: productInfo.productId })
 
                             }
-                        }}>加入股购物车</div>
+                        }}>加入购物车</div>
                         <div className="btn-gourp-item buy" onClick={() => {
                             if (!isLogin) {
                                 history('/login')
