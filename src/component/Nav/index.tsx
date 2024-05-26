@@ -54,7 +54,7 @@ const Nav = () => {
                                 message.warning('请先登录')
                             }
                         }}>
-                            购物车({cartList.length})
+                            购物车({cartList?.length})
                         </li>
                     </ul>
                 </div>

@@ -5,19 +5,16 @@ import Header from "../../component/Header";
 import { useLocation, useNavigate } from "react-router";
 import { actions, useSelector } from "../../store/reduxMini";
 import { saleImg } from "./img";
+import { formatDateTime } from "../../utils";
 
 
 const Detail = () => {
 
     const [activeIndex, setActiveIndex] = useState(0)
-    const { productInfo } = useSelector((state: State) => (state.home));
+    const { productInfo, reviewInfoList } = useSelector((state: State) => (state.home));
     const { userInfo, isLogin } = useSelector((state: State) => (state.use));
     const arr = new Array(4).fill('');
-    const tab = [
-        { name: '商品详情', count: 0, },
-        { name: '用户评价', count: 130 },
-        { name: '购物保障', count: 0 }
-    ]
+
     const location = useLocation();
     const history = useNavigate();
 
@@ -27,9 +24,19 @@ const Detail = () => {
 
         if (productId) {
             actions.home.getProductInfo(productId!);
+            actions.home.getProductReviewInfo(productId!);
         }
     }, [productId])
     console.log('productInfo', productInfo);
+    console.log('reviewInfoList', reviewInfoList);
+    if (!productInfo) {
+        return null
+    }
+    const tab = [
+        { name: '商品详情', count: 0, },
+        { name: '用户评价', count: reviewInfoList.length },
+        { name: '购物保障', count: 0 }
+    ]
     return (
         <div className="detail-wrap">
             <Header />
@@ -133,9 +140,51 @@ const Detail = () => {
                 {
                     activeIndex === 0
                         ? <div className="content">
-                            这里是商品详情
-                            这里是商品详情
-                            这里是商品详情
+                            {productInfo.detail}
+                        </div>
+                        : null
+                }
+                {
+                    activeIndex === 1
+                        ? <div className="content">
+                            {
+                                reviewInfoList.map((d, i) => {
+                                    return (
+                                        <div key={`reviews0${i}`} className="detail-comment-item">
+
+                                            <div className="detail-comment-item-user">
+                                                <div className="detail-comment-item-avatar">
+                                                    <img src={d.profileImage || "https://img02.hua.com/pc/assets/img/avatar_default_05.jpg"} />
+                                                    <span>{d.username}</span>
+                                                </div>
+
+                                            </div>
+                                            <div className="detail-comment-item-main tm-m-photos">
+                                                <div className="star">
+                                                    <ul className="star-list">
+                                                        {
+                                                            new Array(d.rating || 5).fill('').map((h, l) => {
+                                                                return (
+                                                                    <li key={l} className="star-item"></li>
+                                                                );
+                                                            })
+                                                        }
+                                                    </ul>
+                                                </div>
+                                                <div className="detail-comment-item-content">
+                                                    <p>{d.comment}</p>
+                                                </div>
+                                                <div className="detail-comment-item-btm">
+
+                                                    <span className="detail-comment-item-time">{formatDateTime(d.reviewTime.toString())}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    );
+                                })
+                            }
+
                         </div>
                         : null
                 }

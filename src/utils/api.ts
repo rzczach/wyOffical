@@ -10,6 +10,7 @@ const Api = {
     updateUser: `${prefix}users/update`,
     // 商品
     productList: `${prefix}product/list`,
+    productListFlowerMaterial: `${prefix}product/infoByFlowerMaterial`,
     productInfo: `${prefix}product/info`,
     // 购物车
     createCart: `${prefix}cart/create`,
@@ -23,6 +24,11 @@ const Api = {
     setDefaultAddress: `${prefix}address/setDefault`,
     // 订单
     createOrder: `${prefix}order/create`,
+    getOrderByUserId: `${prefix}order/infoByUserId`,
+    // 评价
+    createReviews: `${prefix}reviews/create`,
+    getProductReviews: `${prefix}reviews/infoByProductId`,
+
     
 }
 export default Api;

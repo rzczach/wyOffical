@@ -20,7 +20,7 @@ const App = () => {
 
     }));
     useEffect(() => {
-        actions.home.getProductList();
+        actions.home.getProductList(0);
     }, [])
     const history = useNavigate();
 
@@ -94,26 +94,31 @@ const App = () => {
                 })}
             </div>
             <div className='flower-title'>鲜花列表</div>
-            <section className='product-list'>
-                {
-                    productList.map((d, i) => {
-                        return (
-                            <div className='item' key={i} onClick={() => { history(`/detail?id=${d.productId}`) }} >
-                                <img className='item-img' src={d.mainImg} />
-                                <div className='name'>{d.name}</div>
-                                <div className='box'>
-                                    <div className='price'>{d.price}</div>
-                                    <p className='sale'>已售 {d.stemCount || 200} 件</p>
-                                </div>
+            {
+                productList.length
+                    ? <section className='product-list'>
+                        {
+                            productList.map((d, i) => {
+                                return (
+                                    <div className='item' key={i} onClick={() => { history(`/detail?id=${d.productId}`) }} >
+                                        <img className='item-img' src={d.mainImg} />
+                                        <div className='name'>{d.name}</div>
+                                        <div className='box'>
+                                            <div className='price'>{d.price}</div>
+                                            <p className='sale'>已售 {d.stemCount || 200} 件</p>
+                                        </div>
 
-                            </div>
+                                    </div>
 
-                        );
-                    })
-                }
+                                );
+                            })
+                        }
 
 
-            </section>
+                    </section>
+                    : <div className='product-list'>暂无鲜花</div>
+            }
+
         </div>
     )
 

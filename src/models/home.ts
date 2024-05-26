@@ -3,6 +3,7 @@
 import axios from 'axios';
 import Api from "../utils/api";
 import { actions } from '../store/reduxMini';
+import { UserInfo } from './use';
 //  ---------------------------- 商品信息------------------------
 
 export enum CATEGORY {
@@ -14,6 +15,37 @@ export enum CATEGORY {
     shoutihualan,
     zhuohua
 }
+// const nav = ['鲜花', '花束', '礼盒', '蛋糕', '花篮', '绿植', '周花', '520鲜花']
+export const nav = [
+    {
+        label: '花束',
+        value: CATEGORY.huashu
+    },
+    {
+        label: '礼盒',
+        value: CATEGORY.lihe
+    },
+    {
+        label: '蛋糕',
+        value: CATEGORY.dangao
+    },
+    {
+        label: '花篮',
+        value: CATEGORY.hualan
+    },
+    {
+        label: '绿植',
+        value: CATEGORY.lvzhi
+    },
+    {
+        label: '手提花篮',
+        value: CATEGORY.shoutihualan
+    },
+    {
+        label: '周花',
+        value: CATEGORY.zhuohua
+    },
+]
 export enum OCCASION {
     aiqing = 1,
     shengri,
@@ -102,16 +134,48 @@ export interface ProductInfo {
     mainImg: string;
     name: string;
 }
+
+interface UserReviewsData {
+    reviewId: number;
+    productId: number;
+    userId: number;
+    rating: number;
+    comment: string;
+    reviewTime: number;
+
+}
+
 export default {
     state: {
         installWx: false,
         count: 1,
         productList: [] as ProductInfo[],
-        productInfo: {} as ProductInfo
+        productInfo: {} as ProductInfo,
+        reviewInfoList: [] as (UserInfo & UserReviewsData) []
     },
     actions: {
-        async getProductList() {
-            const info = await axios.get(Api.productList);
+        async getProductList(index: CATEGORY | number) {
+            const info = await axios.get(Api.productList, {
+                params: {
+                    category: index
+                }
+            });
+            
+            if (info.data) {
+                const list = info.data.result.list;
+               
+                actions.home.setState({
+                    productList: list
+                })
+            }
+            return true;
+        },
+        async getProductListByMaterial(index: FLOWERMATERIAL | number) {
+            const info = await axios.get(Api.productListFlowerMaterial, {
+                params: {
+                    flowerMaterial: index
+                }
+            });
             console.log('info', info);
             if (info.data) {
                 const list = info.data.result.list;
@@ -128,12 +192,27 @@ export default {
                     productId: id,
                 }
             });
-            console.log('info', info);
+            
             if (info.data) {
                 const d = info.data.result;
 
                 actions.home.setState({
                     productInfo: d
+                })
+            }
+            
+        },
+        async getProductReviewInfo(id: string) {
+            const info = await axios.get(Api.getProductReviews, {
+                params: {
+                    productId: id,
+                }
+            });
+            console.log('info', info);
+            if (info.data) {
+                const d = info.data.result;
+                actions.home.setState({
+                    reviewInfoList: d.info
                 })
             }
             // return true;

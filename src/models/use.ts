@@ -68,6 +68,7 @@ export default {
             if (info.data) {
                 if (!info.data.result.flag) {
                     message.error(info.data.message)
+                    return false;
                 } else {
                     message.success(info.data.message);
                     const userInfo = info.data.result;
@@ -78,9 +79,10 @@ export default {
                     })
 
                     localStorage.setItem('userInfo', JSON.stringify(userInfo))
+                    return true;
                 }
             }
-            return true;
+           
 
         },
         async upDateUserInfo(data:Partial<UserInfo>) {
@@ -88,6 +90,7 @@ export default {
            console.log('data', data);
             const info = await axios.post(Api.updateUser, {...data,userId: userInfo.userId});
             if (info.data) {
+                
                 message.success(info.data.message)
                 await actions.use.init();
                
@@ -96,8 +99,15 @@ export default {
         async register(data: Partial<UserInfo>) {
             const info = await axios.post(Api.createUser, data);
             if (info.data) {
-                message.success(info.data.message)
-                return true;
+                if (info.data.result.data) {
+                    message.success(info.data.message)
+                    return true;
+                } else {
+                    message.warning(info.data.message)
+                    return false
+                }
+               
+                
             }
         },
         async getAddress() {

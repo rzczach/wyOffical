@@ -199,6 +199,70 @@
             }
         }
 
-        .content {}
+        .content {
+            .detail-comment-item {
+                padding: 20px 0;
+            }
+
+            .detail-comment-item-user {
+                display: inline-block;
+                width: 190px;
+                padding-left: 20px;
+                text-align: center;
+                vertical-align: top;
+
+                .detail-comment-item-avatar {
+                    padding: 0 10px;
+
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        vertical-align: middle;
+                        border-radius: 50%;
+                        overflow: hidden;
+                    }
+
+                    span {
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 100px;
+                        font-size: 13px;
+                        line-height: 18px;
+                        color: rgba(35, 38, 40, 0.7);
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+            }
+
+            .detail-comment-item-main {
+                display: inline-block;
+            }
+
+            .tm-m-photos {
+                zoom: 1
+            }
+
+
+
+            .stars5 {}
+
+            .star-item {
+                display: inline-block;
+                vertical-align: middle;
+                width: 16px;
+                height: 16px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                margin-right: 4px;
+                background-image: url(https://img02.hua.com/m/icon/star_red.png);
+            }
+
+            .detail-comment-item-content {
+                width: 740px;
+                margin: 16px 0 ;
+            }
+        }
     }
 }
