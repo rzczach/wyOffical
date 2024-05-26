@@ -47,14 +47,12 @@ const CmsLogin: React.FC = () => {
     const history = useNavigate();
   
     const searchParams = new URLSearchParams(location.search);
-    console.log('location', location);
+    
     const from = searchParams.get('from');
    
     const [form] = Form.useForm();
-    console.log('from', searchParams);
-    const onFinish = async (values: any) => {
-        console.log('Received values of form: ', values);
-        
+   
+    const onFinish = async (values: any) => { 
         if (from === 'qian') {
             await actions.use.setState({
                

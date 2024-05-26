@@ -8,8 +8,6 @@ const { Header, Content } = Layout;
 
 const CmsLogin: React.FC = () => {
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
-        
         if (values.phone) {
             const userInfo = localStorage.getItem('cmsUserInfo');
             if (userInfo) {

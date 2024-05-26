@@ -20,7 +20,6 @@ const CreateAddressModal = (props: {
     setUserAddress?: (a: UserAddressData) => void
 }) => {
     const {showModal, setShowModal, setUserAddress, initiaData} = props;
-    console.log('initialValues', initiaData);
     let ModalFormProps = {};
     if (initiaData) {
         ModalFormProps = {
@@ -50,7 +49,6 @@ const CreateAddressModal = (props: {
             onOpenChange={() => { setShowModal(!showModal) }}
             modalProps={{ destroyOnClose: true }}
             onFinish={async (values) => {
-                console.log('onFinish', values);
                 const data = {
                     addressTitle: values.addressTitle,
                     isDefault: values.isDefault,

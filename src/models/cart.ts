@@ -55,10 +55,8 @@ export default {
 
         },
         async deleteCart(data: CartInfo[]) {
-            console.log('data', data);
             const dlist = data.filter((d) => {return d.selected}).map((h) => h.cartId)
             const { userInfo } = getState().use;
-            console.log('dlist', dlist);
             const info = await axios.post(Api.deleteCart, {
                 userId: userInfo.userId,
                 cartIds: dlist,

@@ -61,7 +61,6 @@ const Cms: React.FC = () => {
                     mode="inline"
                     defaultSelectedKeys={['1']}
                     onClick={(data) => {
-                        console.log(data);
                         setKey(data.key);
                     }}
                     items={[

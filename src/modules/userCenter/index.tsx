@@ -89,10 +89,8 @@ const UserCenter = () => {
         await actions.use.setDefaultAddress(d);
     };
     const onFinish = async (fieldsValue: any) => {
-        console.log(fieldsValue);
         await actions.use.upDateUserInfo(fieldsValue);
     }
-    console.log('record', record);
     const getContent = () => {
         switch (keys) {
             case "0":
@@ -134,7 +132,6 @@ const UserCenter = () => {
                     </div>
                 );
             case '1':
-                console.log('order', orderList);
                 return (
                     <div className="order-panel">
                         <Modal

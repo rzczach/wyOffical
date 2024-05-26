@@ -131,9 +131,6 @@ const Login = () => {
         if (isSuccess) {
             setUse(true)
         }
-        console.log('Received values of form: ', values);
-
-
     };
     return (
         <div className="login-container">

@@ -38,9 +38,11 @@ const Header = () => {
     const search = () => {
        
         if (value) {
+            if (location.pathname !== '/') {
+                // 如果不是首页，则先跳转到首页
+                history('/');
+            }
             const matchedValue = matchFlowerMaterial(value);
-            console.log(matchedValue); // 应该输出 1，如果匹配到了 "玫瑰"
-            console.log('搜索');
             actions.home.getProductListByMaterial(matchedValue!);
         } else {
             message.warning('请输入搜索内容')
@@ -49,7 +51,6 @@ const Header = () => {
     const history = useNavigate();
     const location = useLocation();
     const req = (index: number) => {
-        console.log('history', history);
         if (location.pathname !== '/') {
             // 如果不是首页，则先跳转到首页
             history('/');

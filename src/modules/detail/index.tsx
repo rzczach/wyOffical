@@ -27,8 +27,6 @@ const Detail = () => {
             actions.home.getProductReviewInfo(productId!);
         }
     }, [productId])
-    console.log('productInfo', productInfo);
-    console.log('reviewInfoList', reviewInfoList);
     if (!productInfo) {
         return null
     }
@@ -99,7 +97,6 @@ const Detail = () => {
                             if (!isLogin) {
                                 history('/login')
                             } else {
-                                console.log('加入');
                                 await actions.cart.createCart({ productId: productInfo.productId })
 
                             }
@@ -110,7 +107,6 @@ const Detail = () => {
                             } else {
                                 localStorage.setItem('productList', JSON.stringify([productInfo]));
                                 history('/order')
-                                console.log('加入');
                             }
                         }}>立即购买</div>
                     </div>

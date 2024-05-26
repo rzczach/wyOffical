@@ -176,10 +176,8 @@ export default {
                     flowerMaterial: index
                 }
             });
-            console.log('info', info);
             if (info.data) {
                 const list = info.data.result.list;
-                console.log('info', info.data);
                 actions.home.setState({
                     productList: list
                 })
@@ -208,7 +206,6 @@ export default {
                     productId: id,
                 }
             });
-            console.log('info', info);
             if (info.data) {
                 const d = info.data.result;
                 actions.home.setState({

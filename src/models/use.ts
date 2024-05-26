@@ -87,7 +87,6 @@ export default {
         },
         async upDateUserInfo(data:Partial<UserInfo>) {
             const { userInfo } = getState().use
-           console.log('data', data);
             const info = await axios.post(Api.updateUser, {...data,userId: userInfo.userId});
             if (info.data) {
                 
@@ -136,7 +135,6 @@ export default {
         },
         async upDateAddress(data:Partial<UserAddressData>) {
             const { userInfo } = getState().use
-            console.log('data', data);
             const info = await axios.post(Api.updateAddress, {...data,userId: userInfo.userId});
             if (info.data) {
                 await actions.use.getAddress();

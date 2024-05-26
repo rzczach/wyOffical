@@ -22,7 +22,6 @@ const Order: React.FC = () => {
     const history = useNavigate();
     useEffect(() => {
         async function init() {
-            console.log('userInfo', isLogin);
             if (!isLogin) {
                 const isLogin = await actions.use.init();
                 if (!isLogin) {
@@ -238,7 +237,6 @@ const Order: React.FC = () => {
                 onOpenChange={() => { setShowModal(!showModal) }}
                 modalProps={{ destroyOnClose: true }}
                 onFinish={async (values) => {
-                    console.log('onFinish', values);
                     const a = await actions.use.createAddress({
                         addressTitle: values.addressTitle,
                         isDefault: values.isDefault,
